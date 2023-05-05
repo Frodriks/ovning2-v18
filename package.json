@@ -1,0 +1,16 @@
+{
+  "name": "ovning2-v18",
+  "version": "1.0.0",
+  "description": "Testverktyg, V.18 , Övning 2 - Skapa ett backend som stöder GET, POST, PUT och DELETE för en databas",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite3": "^8.3.0",
+    "express": "^4.18.2"
+  }
+}
