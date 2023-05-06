@@ -38,16 +38,16 @@ app.get('/api/members', (req, res) => {
 
 // POST - bands
 
-app.get('/api/bands', (req, res) => {
+app.post('/api/bands', (req, res) => {
     const band = req.body;
-    const statement = db.prepare('INSTERT INTO bands (band_name, formed_year, genre) VALUES (?, ?, ?)');
+    const statement = db.prepare('INSERT INTO bands (band_name, formed_year, genre) VALUES (?, ?, ?)');
     const result = statement.run(band.band_name, band.formed_year, band.genre);
     res.json({ id: result.lastInsertRowid, success: true});
 });
 
 // POST - albums
 
-app.get('/api/albums', (req, res) => {
+app.post('/api/albums', (req, res) => {
     const albums = req.body;
     const statement = db.prepare('INSERT INTO albums (album_name, released_year, band_id) VALUES (? , ?, ?)');
     const result = statement.run(albums.album_name, albums.released_year, albums.band_id);
@@ -56,7 +56,7 @@ app.get('/api/albums', (req, res) => {
 
 // POST - members
 
-app.get('/api/members', (req, res) => {
+app.post('/api/members', (req, res) => {
     const members = req.body;
     const statement = db.prepare('INSERT INTO members (first_name, last_name, instrument, band_id) VALUES (?, ?, ?, ?)');
     const result = statement.run(members.first_name, members.last_name, members.instrument, members.band_id);
@@ -66,27 +66,27 @@ app.get('/api/members', (req, res) => {
 // PUT - bands
 
 app.put('/api/bands/:id', (req, res) => {
-    const bands = req.body;
+    const band = req.body;
     const statement = db.prepare('UPDATE bands SET band_name = ?, formed_year = ?, genre = ? WHERE id = ?');
-    const result = statement.run(req.params.id);
+    const result = statement.run(band.band_name, band.formed_year, band.genre, req.params.id);
     res.json({changes: result.changes, success: true});
 });
 
 // PUT - albums
 
 app.put('/api/albums/:album_id', (req,res) => {
-    const albums = req.body;
+    const album = req.body;
     const statement = db.prepare('UPDATE albums SET album_name = ?, released_year = ?, band_id = ? WHERE album_id = ?');
-    const result = statement.run(req.params.album_id);
+    const result = statement.run(album.album_name, album.released_year, album.band_id, req.params.album_id);
     res.json({changes: result.changes, success: true});
 });
 
 // PUT - members
 
-app.put('/api/members/:member:id', (req, res) => {
-    const members = req.body;
+app.put('/api/members/:member_id', (req, res) => {
+    const member = req.body;
     const statement = db.prepare('UPDATE members SET first_name = ?, last_name = ?, instrument = ?, band_id = ? WHERE member_id = ?');
-    const result = statement.run(req.params.member_id);
+    const result = statement.run(member.first_name, member.last_name, member.instrument, member.band_id, req.params.member_id);
     res.json({changes: result.changes, success: true});
 });
 
